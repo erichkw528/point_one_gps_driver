@@ -15,18 +15,21 @@
 #include "point_one_gps_driver/point_one_gps.hpp"
 
 /*
- * Point One GPS Node publishes realtime GPS/IMU messages.
+ * waypoint recorder should just read topics from rosbag and downsample them, generating waypoints 
  */ 
 class PointOneGpsNode : public fusion_engine::MessageListener, public rclcpp::Node {
+
+
+
+
+
 
 public:
   PointOneGpsNode() : 
       Node("point_one_gps_node"), 
       gps(PointOneGps::getInstance()),
       connection_type_("udp"),
-      //connection_type_("tcp"),
       tcp_ip_(""),
-      //tcp_ip_("10.0.0.2"),
       tcp_port_(30201),
       udp_port_(23456),
       frame_id_("") {
@@ -89,6 +92,14 @@ private:
   int tcp_port_;
   int udp_port_;
   std::string frame_id_;
+  /*
+* we shoudld  make a list of waypoints that are gps coordinates and jsut populate the list during the duration of the rosbag
+
+*/
+  std::unique_ptr<gps_msgs::msg::GPSFix[]> waypoint_ptr(new gps_msgs::msg::GPSFix[1000])
+ 
+
+	
 
   /**
    * Initiate gps unit to read data.
