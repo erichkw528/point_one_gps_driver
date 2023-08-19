@@ -22,8 +22,8 @@ def generate_launch_description():
             param_file_path
         ],
         remappings={
-            'nav_sat_fix':'/gps/fix',
-            'gps_fix': '/gps/gps',
+            'nav_sat_fix':'/nav/sat/fix',
+            'gps_fix': '/gps/fix',
             'imu': '/gps/imu',
             'pose': '/gps/pose'
         }.items()
